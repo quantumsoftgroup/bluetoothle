@@ -1,8 +1,7 @@
-﻿<Project Sdk="MSBuild.Sdk.Extras/2.0.29">
+﻿<Project Sdk="MSBuild.Sdk.Extras/2.0.54">
 
     <PropertyGroup>
-        <TargetFrameworks>netstandard2.0;monoandroid81;monoandroid90;xamarinios10;xamarinmac20;xamarin.TVOS10</TargetFrameworks>
-        <TargetFrameworks Condition=" '$(OS)' == 'Windows_NT' ">uap10.0.16299;$(TargetFrameworks)</TargetFrameworks>
+        <TargetFrameworks>netstandard2.0;monoandroid90;xamarinios10;xamarinmac20;xamarin.TVOS10</TargetFrameworks>
         <Authors>aritchie</Authors>
         <Company />
         <AssemblyName>Plugin.BluetoothLE</AssemblyName>
@@ -17,7 +16,7 @@ Supported Platforms
 * macOS
 * UWP</Description>
         <Product>$(AssemblyName) ($(TargetFramework))</Product>
-        <PackageVersion>6.2.6</PackageVersion>
+        <PackageVersion>6.2.7</PackageVersion>
         <RepositoryUrl>https://github.com/aritchie/bluetoothle</RepositoryUrl>
         <PackageProjectUrl>https://github.com/aritchie/bluetoothle</PackageProjectUrl>
         <PackageLicenseUrl>https://github.com/aritchie/bluetoothle/blob/master/LICENSE.md</PackageLicenseUrl>
@@ -56,7 +55,8 @@ Supported Platforms
         <Compile Remove="Platforms\**\*.cs" />
         <None Include="Platforms\**\*.cs" />
         <None Remove="Platforms\Uwp\Platform.cs" />
-        <PackageReference Include="System.Reactive" Version="4.1.5" />
+        <PackageReference Include="System.Reactive" Version="4.2.0" />
+        <PackageReference Include="System.ValueTuple" Version="4.5.0" />
     </ItemGroup>
 
     <ItemGroup Condition=" $(TargetFramework.StartsWith('monoandroid')) ">
