@@ -23,7 +23,7 @@ namespace Plugin.BluetoothLE
             : base(native.Name, ToDeviceId(native.Address))
         {
             this.connSubject = new Subject<ConnectionStatus>();
-            this.context = new DeviceContext(native);
+            this.context = new DeviceContext(native, this);
             this.manager = manager;
         }
 

@@ -7,14 +7,28 @@ namespace Plugin.BluetoothLE.Internals
 {
     public class GattCallbacks : BluetoothGattCallback
     {
+        private Device device;
+        public GattCallbacks(Device d)
+        {
+            device = d;
+        }
+
         public Subject<GattCharacteristicEventArgs> CharacteristicRead { get; } = new Subject<GattCharacteristicEventArgs>();
+
         public override void OnCharacteristicRead(BluetoothGatt gatt, BluetoothGattCharacteristic characteristic, GattStatus status)
-            => this.CharacteristicRead.OnNext(new GattCharacteristicEventArgs(gatt, characteristic, status));
+        {
+            device?.InvokeErrorReceived((int) status);
+            this.CharacteristicRead.OnNext(new GattCharacteristicEventArgs(gatt, characteristic, status));
+        }
 
 
         public Subject<GattCharacteristicEventArgs> CharacteristicWrite { get; } = new Subject<GattCharacteristicEventArgs>();
+
         public override void OnCharacteristicWrite(BluetoothGatt gatt, BluetoothGattCharacteristic characteristic, GattStatus status)
-            => this.CharacteristicWrite.OnNext(new GattCharacteristicEventArgs(gatt, characteristic, status));
+        {
+            device?.InvokeErrorReceived((int) status);
+            this.CharacteristicWrite.OnNext(new GattCharacteristicEventArgs(gatt, characteristic, status));
+        }
 
 
         public Subject<GattCharacteristicEventArgs> CharacteristicChanged { get; } = new Subject<GattCharacteristicEventArgs>();
@@ -23,23 +37,38 @@ namespace Plugin.BluetoothLE.Internals
 
 
         public Subject<GattDescriptorEventArgs> DescriptorRead { get; } = new Subject<GattDescriptorEventArgs>();
+
         public override void OnDescriptorRead(BluetoothGatt gatt, BluetoothGattDescriptor descriptor, GattStatus status)
-            => this.DescriptorRead.OnNext(new GattDescriptorEventArgs(gatt, descriptor, status));
+        {
+            device?.InvokeErrorReceived((int) status);
+            this.DescriptorRead.OnNext(new GattDescriptorEventArgs(gatt, descriptor, status));
+        }
 
 
         public Subject<GattDescriptorEventArgs> DescriptorWrite { get; } = new Subject<GattDescriptorEventArgs>();
+
         public override void OnDescriptorWrite(BluetoothGatt gatt, BluetoothGattDescriptor descriptor, GattStatus status)
-            => this.DescriptorWrite.OnNext(new GattDescriptorEventArgs(gatt, descriptor, status));
+        {
+            device?.InvokeErrorReceived((int) status);
+            this.DescriptorWrite.OnNext(new GattDescriptorEventArgs(gatt, descriptor, status));
+        }
 
 
         public Subject<MtuChangedEventArgs> MtuChanged { get; } = new Subject<MtuChangedEventArgs>();
-        public override void OnMtuChanged(BluetoothGatt gatt, int mtu, GattStatus status)
-            => this.MtuChanged.OnNext(new MtuChangedEventArgs(mtu, gatt, status));
 
+        public override void OnMtuChanged(BluetoothGatt gatt, int mtu, GattStatus status)
+        {
+            device?.InvokeErrorReceived((int) status);
+            this.MtuChanged.OnNext(new MtuChangedEventArgs(mtu, gatt, status));
+        }
 
         public Subject<GattRssiEventArgs> ReadRemoteRssi  { get; } = new Subject<GattRssiEventArgs>();
+
         public override void OnReadRemoteRssi(BluetoothGatt gatt, int rssi, GattStatus status)
-            => this.ReadRemoteRssi.OnNext(new GattRssiEventArgs(rssi, gatt, status));
+        {
+            device?.InvokeErrorReceived((int) status);
+            this.ReadRemoteRssi.OnNext(new GattRssiEventArgs(rssi, gatt, status));
+        }
 
 
         public Subject<GattEventArgs> ReliableWriteCompleted { get; } = new Subject<GattEventArgs>();
@@ -48,12 +77,19 @@ namespace Plugin.BluetoothLE.Internals
 
 
         public Subject<GattEventArgs> ServicesDiscovered { get; } = new Subject<GattEventArgs>();
-        public override void OnServicesDiscovered(BluetoothGatt gatt, GattStatus status)
-            => this.ServicesDiscovered.OnNext(new GattEventArgs(gatt, status));
 
+        public override void OnServicesDiscovered(BluetoothGatt gatt, GattStatus status)
+        {
+            device?.InvokeErrorReceived((int) status);
+            this.ServicesDiscovered.OnNext(new GattEventArgs(gatt, status));
+        }
 
         public Subject<ConnectionStateEventArgs> ConnectionStateChanged { get; } = new Subject<ConnectionStateEventArgs>();
+
         public override void OnConnectionStateChange(BluetoothGatt gatt, GattStatus status, ProfileState newState)
-            => this.ConnectionStateChanged.OnNext(new ConnectionStateEventArgs(gatt, status, newState));
+        {
+            device?.InvokeErrorReceived((int) status);
+            this.ConnectionStateChanged.OnNext(new ConnectionStateEventArgs(gatt, status, newState));
+        }
     }
 }

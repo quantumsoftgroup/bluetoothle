@@ -24,10 +24,10 @@ namespace Plugin.BluetoothLE.Internals
         CancellationTokenSource cancelSrc;
 
 
-        public DeviceContext(BluetoothDevice device)
+        public DeviceContext(BluetoothDevice device, Device d)
         {
             this.NativeDevice = device;
-            this.Callbacks = new GattCallbacks();
+            this.Callbacks = new GattCallbacks(d);
             this.Actions = new ConcurrentQueue<Func<Task>>();
             this.connErrorSubject = new Subject<BleException>();
         }
