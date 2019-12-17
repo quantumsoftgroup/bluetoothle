@@ -17,7 +17,7 @@ namespace Plugin.BluetoothLE.Internals
 
         public override void OnCharacteristicRead(BluetoothGatt gatt, BluetoothGattCharacteristic characteristic, GattStatus status)
         {
-            device?.InvokeErrorReceived((int) status);
+            device?.InvokeErrorReceived(GattOperation.Read, new Guid(characteristic.Uuid.ToString()), (int) status);
             this.CharacteristicRead.OnNext(new GattCharacteristicEventArgs(gatt, characteristic, status));
         }
 
@@ -26,7 +26,7 @@ namespace Plugin.BluetoothLE.Internals
 
         public override void OnCharacteristicWrite(BluetoothGatt gatt, BluetoothGattCharacteristic characteristic, GattStatus status)
         {
-            device?.InvokeErrorReceived((int) status);
+            device?.InvokeErrorReceived(GattOperation.Write, new Guid(characteristic.Uuid.ToString()), (int) status);
             this.CharacteristicWrite.OnNext(new GattCharacteristicEventArgs(gatt, characteristic, status));
         }
 
@@ -40,7 +40,7 @@ namespace Plugin.BluetoothLE.Internals
 
         public override void OnDescriptorRead(BluetoothGatt gatt, BluetoothGattDescriptor descriptor, GattStatus status)
         {
-            device?.InvokeErrorReceived((int) status);
+            device?.InvokeErrorReceived(GattOperation.ReadDescriptor, new Guid(descriptor.Uuid.ToString()), (int) status);
             this.DescriptorRead.OnNext(new GattDescriptorEventArgs(gatt, descriptor, status));
         }
 
@@ -49,7 +49,7 @@ namespace Plugin.BluetoothLE.Internals
 
         public override void OnDescriptorWrite(BluetoothGatt gatt, BluetoothGattDescriptor descriptor, GattStatus status)
         {
-            device?.InvokeErrorReceived((int) status);
+            device?.InvokeErrorReceived(GattOperation.WriteDescriptor, new Guid(descriptor.Uuid.ToString()), (int) status);
             this.DescriptorWrite.OnNext(new GattDescriptorEventArgs(gatt, descriptor, status));
         }
 
@@ -58,7 +58,7 @@ namespace Plugin.BluetoothLE.Internals
 
         public override void OnMtuChanged(BluetoothGatt gatt, int mtu, GattStatus status)
         {
-            device?.InvokeErrorReceived((int) status);
+            device?.InvokeErrorReceived(GattOperation.Mtu, device.Uuid, (int) status);
             this.MtuChanged.OnNext(new MtuChangedEventArgs(mtu, gatt, status));
         }
 
@@ -66,21 +66,24 @@ namespace Plugin.BluetoothLE.Internals
 
         public override void OnReadRemoteRssi(BluetoothGatt gatt, int rssi, GattStatus status)
         {
-            device?.InvokeErrorReceived((int) status);
+            device?.InvokeErrorReceived(GattOperation.ReadRssi, device.Uuid, (int) status);
             this.ReadRemoteRssi.OnNext(new GattRssiEventArgs(rssi, gatt, status));
         }
 
 
         public Subject<GattEventArgs> ReliableWriteCompleted { get; } = new Subject<GattEventArgs>();
-        public override void OnReliableWriteCompleted(BluetoothGatt gatt, GattStatus status)
-            => this.ReliableWriteCompleted.OnNext(new GattEventArgs(gatt, status));
 
+        public override void OnReliableWriteCompleted(BluetoothGatt gatt, GattStatus status)
+        {
+            device?.InvokeErrorReceived(GattOperation.ReliableWrite, device.Uuid, (int) status);
+            this.ReliableWriteCompleted.OnNext(new GattEventArgs(gatt, status));
+        }
 
         public Subject<GattEventArgs> ServicesDiscovered { get; } = new Subject<GattEventArgs>();
 
         public override void OnServicesDiscovered(BluetoothGatt gatt, GattStatus status)
         {
-            device?.InvokeErrorReceived((int) status);
+            device?.InvokeErrorReceived(GattOperation.Discover, device.Uuid, (int) status);
             this.ServicesDiscovered.OnNext(new GattEventArgs(gatt, status));
         }
 
@@ -88,7 +91,7 @@ namespace Plugin.BluetoothLE.Internals
 
         public override void OnConnectionStateChange(BluetoothGatt gatt, GattStatus status, ProfileState newState)
         {
-            device?.InvokeErrorReceived((int) status);
+            device?.InvokeErrorReceived(GattOperation.Connection, device.Uuid, (int) status);
             this.ConnectionStateChanged.OnNext(new ConnectionStateEventArgs(gatt, status, newState));
         }
     }

@@ -78,5 +78,7 @@ namespace Plugin.BluetoothLE.Tests.Mocks
         {
             throw new NotImplementedException();
         }
+
+        public event Action<GattOperation, Guid, int> ErrorReceived;
     }
 }

@@ -115,6 +115,6 @@ namespace Plugin.BluetoothLE
         /// <returns>Transaction session</returns>
         IGattReliableWriteTransaction BeginReliableWriteTransaction();
 
-        event Action<int> ErrorReceived;
+        event Action<GattOperation, Guid, int> ErrorReceived;
     }
 }

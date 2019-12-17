@@ -1,0 +1,62 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>Plugin.BluetoothLE</id>
+    <version>6.2.8</version>
+    <authors>aritchie</authors>
+    <owners>aritchie</owners>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <licenseUrl>https://github.com/aritchie/bluetoothle/blob/master/LICENSE.md</licenseUrl>
+    <projectUrl>https://github.com/aritchie/bluetoothle</projectUrl>
+    <iconUrl>https://github.com/aritchie/bluetoothle/raw/master/icon.png</iconUrl>
+    <description>ACR Bluetooth LE Reactive Plugin for Xamarin and Windows
+
+Supported Platforms
+* .NET Standard
+* Android 4.3+
+* iOS 7+
+* tvOS
+* macOS
+* UWP</description>
+    <releaseNotes>https://github.com/aritchie/bluetoothle/blob/master/docs/changelog.md</releaseNotes>
+    <tags>ios android uwp windows tvos mac macos xamarin rx reactive ble bluetooth bluetoothle gattserver advertising</tags>
+    <repository type="git" url="https://github.com/aritchie/bluetoothle" />
+    <dependencies>
+      <group targetFramework="MonoAndroid9.0">
+        <dependency id="System.Reactive" version="4.2.0" exclude="Build,Analyzers" />
+        <dependency id="System.ValueTuple" version="4.5.0" exclude="Build,Analyzers" />
+      </group>
+      <group targetFramework="Xamarin.iOS1.0">
+        <dependency id="System.Reactive" version="4.2.0" exclude="Build,Analyzers" />
+        <dependency id="System.ValueTuple" version="4.5.0" exclude="Build,Analyzers" />
+      </group>
+      <group targetFramework="Xamarin.Mac2.0">
+        <dependency id="System.Reactive" version="4.2.0" exclude="Build,Analyzers" />
+        <dependency id="System.ValueTuple" version="4.3.0" exclude="Build,Analyzers" />
+      </group>
+      <group targetFramework="Xamarin.TVOS1.0">
+        <dependency id="System.Reactive" version="4.2.0" exclude="Build,Analyzers" />
+        <dependency id="System.ValueTuple" version="4.5.0" exclude="Build,Analyzers" />
+      </group>
+      <group targetFramework=".NETStandard2.0">
+        <dependency id="System.Reactive" version="4.2.0" exclude="Build,Analyzers" />
+        <dependency id="System.ValueTuple" version="4.5.0" exclude="Build,Analyzers" />
+      </group>
+    </dependencies>
+    <frameworkAssemblies>
+      <frameworkAssembly assemblyName="Java.Interop" targetFramework="MonoAndroid9.0" />
+    </frameworkAssemblies>
+  </metadata>
+  <files>
+    <file src="G:\Temp\bluetoothle\Plugin.BluetoothLE\bin\Debug\netstandard2.0\Plugin.BluetoothLE.pdb" target="lib\netstandard2.0\Plugin.BluetoothLE.pdb" />
+    <file src="G:\Temp\bluetoothle\Plugin.BluetoothLE\bin\Debug\monoandroid90\90\Plugin.BluetoothLE.pdb" target="lib\monoandroid90\Plugin.BluetoothLE.pdb" />
+    <file src="G:\Temp\bluetoothle\Plugin.BluetoothLE\bin\Debug\xamarinios10\Plugin.BluetoothLE.pdb" target="lib\xamarinios10\Plugin.BluetoothLE.pdb" />
+    <file src="G:\Temp\bluetoothle\Plugin.BluetoothLE\bin\Debug\xamarinmac20\Plugin.BluetoothLE.pdb" target="lib\xamarinmac20\Plugin.BluetoothLE.pdb" />
+    <file src="G:\Temp\bluetoothle\Plugin.BluetoothLE\bin\Debug\xamarin.tvos10\Plugin.BluetoothLE.pdb" target="lib\xamarintvos10\Plugin.BluetoothLE.pdb" />
+    <file src="G:\Temp\bluetoothle\Plugin.BluetoothLE\bin\Debug\netstandard2.0\Plugin.BluetoothLE.dll" target="lib\netstandard2.0\Plugin.BluetoothLE.dll" />
+    <file src="G:\Temp\bluetoothle\Plugin.BluetoothLE\bin\Debug\monoandroid90\90\Plugin.BluetoothLE.dll" target="lib\monoandroid90\Plugin.BluetoothLE.dll" />
+    <file src="G:\Temp\bluetoothle\Plugin.BluetoothLE\bin\Debug\xamarinios10\Plugin.BluetoothLE.dll" target="lib\xamarinios10\Plugin.BluetoothLE.dll" />
+    <file src="G:\Temp\bluetoothle\Plugin.BluetoothLE\bin\Debug\xamarinmac20\Plugin.BluetoothLE.dll" target="lib\xamarinmac20\Plugin.BluetoothLE.dll" />
+    <file src="G:\Temp\bluetoothle\Plugin.BluetoothLE\bin\Debug\xamarin.tvos10\Plugin.BluetoothLE.dll" target="lib\xamarintvos10\Plugin.BluetoothLE.dll" />
+  </files>
+</package>

@@ -117,7 +117,8 @@ namespace Plugin.BluetoothLE
                         ob.Respond(new CharacteristicGattResult(this, args.Characteristic.GetValue()));
                     else
                         ob.OnError(new BleException($"Failed to read characteristic - {args.Status}"));
-                });
+                },
+                ex => ob.OnError(ex));
 
             this.context.InvokeOnMainThread(() =>
             {

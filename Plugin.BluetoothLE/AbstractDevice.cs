@@ -35,11 +35,11 @@ namespace Plugin.BluetoothLE
         public virtual IObservable<int> WhenMtuChanged() => Observable.Empty<int>();
         public virtual IGattReliableWriteTransaction BeginReliableWriteTransaction() => new VoidGattReliableWriteTransaction();
 
-        public event Action<int> ErrorReceived;
-        internal void InvokeErrorReceived(int code)
+        public event Action<GattOperation, Guid, int> ErrorReceived;
+        internal void InvokeErrorReceived(GattOperation op, Guid id, int code)
         {
             if (code != 0)
-                ErrorReceived?.Invoke(code);
+                ErrorReceived?.Invoke(op, id, code);
         }
     }
 }
