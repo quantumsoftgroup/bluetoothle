@@ -8,7 +8,7 @@ using Android.Bluetooth;
 using Java.Util;
 using Plugin.BluetoothLE.Internals;
 using Observable = System.Reactive.Linq.Observable;
-
+using System.Diagnostics;
 
 namespace Plugin.BluetoothLE
 {
@@ -46,7 +46,7 @@ namespace Plugin.BluetoothLE
 
                     if (!this.native.SetValue(value))
                         throw new BleException("Failed to write characteristic value");
-
+                    this.context.Device.InvokeOperationStarted(GattOperation.Write);
                     if (!this.context.Gatt.WriteCharacteristic(this.native))
                         throw new BleException("Failed to write to characteristic");
 
@@ -90,6 +90,7 @@ namespace Plugin.BluetoothLE
                     //ob.OnError(new BleException("Failed to set characteristic value"));
 
                     //else if (!this.context.Gatt.WriteCharacteristic(this.native))
+                    this.context.Device.InvokeOperationStarted(GattOperation.Write);
                     if (!this.context.Gatt?.WriteCharacteristic(this.native) ?? false)
                         ob.OnError(new BleException("Failed to write to characteristic"));
                 }
@@ -124,6 +125,7 @@ namespace Plugin.BluetoothLE
             {
                 try
                 {
+                    this.context.Device.InvokeOperationStarted(GattOperation.Read);
                     if (!this.context.Gatt?.ReadCharacteristic(this.native) ?? false)
                         ob.OnError(new BleException("Failed to read characteristic"));
                 }

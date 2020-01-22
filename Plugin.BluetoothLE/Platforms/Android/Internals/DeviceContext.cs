@@ -27,12 +27,13 @@ namespace Plugin.BluetoothLE.Internals
         public DeviceContext(BluetoothDevice device, Device d)
         {
             this.NativeDevice = device;
+            Device = d;
             this.Callbacks = new GattCallbacks(d);
             this.Actions = new ConcurrentQueue<Func<Task>>();
             this.connErrorSubject = new Subject<BleException>();
         }
 
-
+        public Device Device { get; }
         public BluetoothGatt Gatt { get; private set; }
         public BluetoothDevice NativeDevice { get; }
         public GattCallbacks Callbacks { get; }
@@ -193,11 +194,12 @@ namespace Plugin.BluetoothLE.Internals
             try
             {
                 this.running = true;
-                var ts = CrossBleAdapter.AndroidConfiguration.PauseBetweenInvocations;
+
                 // TODO: consider
                 while (this.Actions.TryDequeue(out Func<Task> task) && this.running)
                 {
                     await task();
+                    var ts = CrossBleAdapter.AndroidConfiguration.PauseBetweenInvocations;
                     if (ts.TotalMilliseconds > 0)
                         await Task.Delay(ts, this.cancelSrc.Token);
                 }

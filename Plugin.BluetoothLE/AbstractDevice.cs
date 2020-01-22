@@ -41,5 +41,11 @@ namespace Plugin.BluetoothLE
             if (code != 0)
                 ErrorReceived?.Invoke(op, id, code);
         }
+
+        public event Action<GattOperation> OperationStarted;
+        internal void InvokeOperationStarted(GattOperation op)
+        {
+            OperationStarted?.Invoke(op);
+        }
     }
 }
